@@ -72,16 +72,23 @@ export const setCurrentUser = decoded => {
 }
 
 export const logoutUser = (history) => dispatch => {
-    
+    axios.post(REACT_APP_API_HOST.api + '/users/logout', {})
+            .then(res => {
+                _removeData()
+            })
+            .catch(err => {
+                console.log('LOGOUT ->> error !!!-> ', err)
+            })
+
     _removeData = async () => {
         try {
-            await AsyncStorage.removeItem('jwtToken')
-            setAuthToken(false);
-            dispatch(setCurrentUser({}));
-            history.push('/login');
+                await AsyncStorage.removeItem('jwtToken')
+                await AsyncStorage.removeItem('fcmToken')
+                setAuthToken(false);
+                dispatch(setCurrentUser({}))
+                history.push('/login')
         } catch (error) {
           // Error saving data
         }
       };
-      _removeData()
 }

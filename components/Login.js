@@ -111,9 +111,9 @@ class Login extends Component {
     render() {
         const {errors} = this.state
         return(
-            <View>
-                <Card>
-                    <Text>Parapeti Login</Text>
+            <View style={{flex:1, width: '100%', height:'100%', alignContent: 'center'}}>
+                <Card style={{flex:1, width: '100%', height:'100%', alignContent: 'center', padding: 10}}>
+                    <Text style={{marginBottom: 10}}>Parapeti Login</Text>
                     <TextField
                         label='E-mail'
                         id="username"
@@ -121,8 +121,9 @@ class Login extends Component {
                         name="username"
                         onChangeText={this.handleEmailChange}
                         autoCapitalize="none" 
+                        containerStyle={{marginBottom: 10}}
                     />
-                    {errors.username && (<Text id="username-text" style={{color: 'red'}}>{errors.username}</Text>)}
+                    {errors.username && (<Text id="username-text" style={{color: 'red',marginTop:2, marginBottom: 10}}>{errors.username}</Text>)}
                     <TextField
                     secureTextEntry={true}
                     label='Senha'
@@ -130,9 +131,10 @@ class Login extends Component {
                     value={ this.state.password }
                     name="password"
                     onChangeText={this.handlePasswordChange}
+                    containerStyle={{marginBottom: 10}}
                     />
                     {errors.password && (<Text id="password-text" style={{color: 'red'}}>{errors.password}</Text>)}
-                    <Button fullWidth={true} variant="contained" primary type="submit" text="Login" onPress={this.handleSubmit}/>
+                    <Button fullWidth={true} raised primary style={{marginBottom: 10}} type="submit" text="Login" onPress={this.handleSubmit}/>
                    
                     <Link component={ AdapterLink } to="/forgot_password">
                                     <Text>Esqueceu sua senha?</Text> 
