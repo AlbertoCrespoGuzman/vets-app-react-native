@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "791733053800",
+    "firebase_url": "https://manifest-alpha-152719.firebaseio.com",
+    "project_id": "manifest-alpha-152719",
+    "storage_bucket": "manifest-alpha-152719.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:791733053800:android:ff9ef147e59e545c250edd",
+        "android_client_info": {
+          "package_name": "com.app_parapeti_react_native"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "791733053800-mgfu9386r4g0nhqqq1glhn8afgpghona.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDPz1UgoaS0IP-cTcZJbKPGL_OfhYCGljg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "791733053800-mgfu9386r4g0nhqqq1glhn8afgpghona.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
