@@ -111,9 +111,9 @@ class Login extends Component {
     render() {
         const {errors} = this.state
         return(
-            <View style={{flex:1, width: '100%', height:'100%', alignContent: 'center'}}>
+            <View style={{flex:1, width: '100%', height:'100%', alignContent: 'center', marginTop: 100, padding: 20}}>
                 <Card style={{flex:1, width: '100%', height:'100%', alignContent: 'center', padding: 10}}>
-                    <Text style={{marginBottom: 10}}>Parapeti Login</Text>
+                    <Text style={{padding: 10, margin: 10, fontSize: 30, alignSelf:'center'}}>Parapeti Login</Text>
                     <TextField
                         label='E-mail'
                         id="username"
@@ -121,7 +121,7 @@ class Login extends Component {
                         name="username"
                         onChangeText={this.handleEmailChange}
                         autoCapitalize="none" 
-                        containerStyle={{marginBottom: 10}}
+                        containerStyle={{margin:10}}
                     />
                     {errors.username && (<Text id="username-text" style={{color: 'red',marginTop:2, marginBottom: 10}}>{errors.username}</Text>)}
                     <TextField
@@ -131,13 +131,13 @@ class Login extends Component {
                     value={ this.state.password }
                     name="password"
                     onChangeText={this.handlePasswordChange}
-                    containerStyle={{marginBottom: 10}}
+                    containerStyle={{margin: 10}}
                     />
                     {errors.password && (<Text id="password-text" style={{color: 'red'}}>{errors.password}</Text>)}
-                    <Button fullWidth={true} raised primary style={{marginBottom: 10}} type="submit" text="Login" onPress={this.handleSubmit}/>
+                    <Button fullWidth={true} raised primary style={{margin: 10}} type="submit" text="Login" onPress={this.handleSubmit}/>
                    
                     <Link component={ AdapterLink } to="/forgot_password">
-                                    <Text>Esqueceu sua senha?</Text> 
+                                    <Text style={{margin:10}}>Esqueceu sua senha?</Text> 
                      </Link>       
                     
                 </Card>

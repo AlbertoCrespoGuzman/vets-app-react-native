@@ -72,7 +72,7 @@ export const setCurrentUser = decoded => {
 }
 
 export const logoutUser = (history) => dispatch => {
-    axios.post(REACT_APP_API_HOST.api + '/users/logout', {})
+    axios.post(REACT_APP_API_HOST.api + '/api/users/logout', {})
             .then(res => {
                 _removeData()
             })
