@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, Image,ImageBackground } from 'react-native';
 import {PermissionsAndroid} from 'react-native';
+import backgroundImage from './../assets/img/carousel1.jpg'
+import logoImage from './../assets/img/logo_white.png'
+
 
 export default class Home extends Component {
     constructor(props){
@@ -41,11 +44,23 @@ export default class Home extends Component {
             console.log(e);
           }
     }
+    
     render() {
+      let { StyleSheet } = React;
+
+      let styles = StyleSheet.create({
+        backgroundImage: {
+          justifyContent: 'center', 
+          alignItems: 'center', 
+          flex: 1, 
+          resizeMode: Image.resizeMode.contain, 
+        }
+      });
         return (
-            <Text  style={{backgroundColor: 'red', marginTop:100}}>
-                Home Component 22222222
-            </Text>
+            <ImageBackground source={backgroundImage}  style={{width: '100%', height: '100%'}}>
+              <Image  source={logoImage} />
+                  
+            </ImageBackground>
         );
     }
 }

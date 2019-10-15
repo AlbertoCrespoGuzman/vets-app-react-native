@@ -46,7 +46,7 @@ function App() {
     palette: {
       type: "light",
       primary: {
-        main: '#13aa52'
+        main: '#0188FE'
       },
       secondary: {
         main: '#E33E7F'
@@ -62,7 +62,7 @@ function App() {
   
   const uiTheme = {
     palette: {
-      primaryColor: COLOR.green500,
+      primaryColor: "#0188FE",
     },
     toolbar: {
       container: {
