@@ -12,6 +12,7 @@ import Navbar from './components/Navbar';
 import Login from './components/Login';
 import Home from './components/Home';
 import Exams from './components/Exams';
+import Profile from './components/Profile';
 
 import {AsyncStorage} from 'react-native';
 import { Navigation } from 'react-native-navigation';
@@ -40,6 +41,9 @@ _storeData = async () => {
     // Error saving data
   }
 };
+toogleDrawer = () => {
+    const  openDrawer = false
+}
 
 function App() {
   const [theme, setTheme] = useState({
@@ -57,6 +61,14 @@ function App() {
       background: {
         default: "#e6e6e6"
       }
+    },
+    drawerHeaderListItem: {
+      primaryText: {
+        color: 'white',
+      },
+      secondaryText: {
+        color: 'white',
+      }
     }
   })
   
@@ -69,17 +81,27 @@ function App() {
         height: 50,
       },
     },
+    drawerHeaderListItem: {
+      primaryText: {
+        color: 'white',
+      },
+      secondaryText: {
+        color: 'white',
+      }
+    }
   };
+  
   _storeData() 
   return (
     <View style={styles.container}>
     <Provider store = { store }>
       <ThemeContext.Provider value={getTheme(uiTheme)}>
-      <NativeRouter>
-              <Navbar navigation={Navigation}/>
+          <NativeRouter>
+              <Navbar navigation={Navigation}  toogleDrawer={toogleDrawer}/>
               <Route exact path="/login" component={ Login } />
-              <Route exact path="/" component={ Home } />
-              <Route exact path="/exams" component={ Exams } />
+              <Route exact path="/" component={ Home }  toogleDrawer={toogleDrawer}/>
+              <Route exact path="/exams" component={ Exams }  toogleDrawer={toogleDrawer}/>
+              <Route exact path="/profile" component={ Profile }  toogleDrawer={toogleDrawer}/>
           </NativeRouter>
       </ThemeContext.Provider>
       </Provider>

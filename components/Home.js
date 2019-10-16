@@ -3,7 +3,8 @@ import { StyleSheet, Text, View, Image,ImageBackground } from 'react-native';
 import {PermissionsAndroid} from 'react-native';
 import backgroundImage from './../assets/img/carousel1.jpg'
 import logoImage from './../assets/img/logo_white.png'
-
+import { Button } from 'react-native-material-ui';
+import navigation from './../navigation'
 
 export default class Home extends Component {
     constructor(props){
@@ -16,6 +17,11 @@ export default class Home extends Component {
     componentDidMount(){
         if(Platform.OS === 'android' && !this.state.androidPermission) {
             this.getPermission()
+        }else{
+          if(nextProps.auth.isAuthenticated) {
+            console.log('pushhhhh me to')
+            this.props.history.push(navigation.exams)
+          }
         }
     }
     getPermission = async () => {
@@ -46,20 +52,13 @@ export default class Home extends Component {
     }
     
     render() {
-      let { StyleSheet } = React;
-
-      let styles = StyleSheet.create({
-        backgroundImage: {
-          justifyContent: 'center', 
-          alignItems: 'center', 
-          flex: 1, 
-          resizeMode: Image.resizeMode.contain, 
-        }
-      });
+      
         return (
-            <ImageBackground source={backgroundImage}  style={{width: '100%', height: '100%'}}>
-              <Image  source={logoImage} />
-                  
+            <ImageBackground source={backgroundImage}  style={{width: '100%', height: '100%', alignItems: 'center',flex:1, justifyContent:'center'  }}>
+              <Image  source={logoImage} style={{ width: 200, height: 100}}/>
+              <Button onPress={()=>{
+                this.props.history.push(navigation.login);
+            }}  style={{ position: 'absolute', right: '0', zIndex:999999}} raised primary text="Consulte seu exame" />    
             </ImageBackground>
         );
     }

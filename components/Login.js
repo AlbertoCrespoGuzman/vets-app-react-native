@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, Linking } from 'react-native';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { loginUser } from '../actions/authentication'
-import { Card, Button } from 'react-native-material-ui';
-import { NativeRouter, Route, Link } from "react-router-native";
+import { Card,Button } from 'react-native-material-ui';
+import { NativeRouter, Router } from "react-router-native";
 import { TextField } from 'react-native-material-textfield';
 import {AsyncStorage} from 'react-native';
 import firebase from 'react-native-firebase'
@@ -22,6 +22,7 @@ class Login extends Component {
         this.handleEmailChange = this.handleEmailChange.bind(this);
         this.handlePasswordChange = this.handlePasswordChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+        console.log('constructor Login Linkin ->', Linking)
     }
     
     handleEmailChange(e) {
@@ -99,7 +100,7 @@ class Login extends Component {
       }
     componentWillReceiveProps(nextProps) {
         if(nextProps.auth.isAuthenticated) {
-            this.props.history.push('/')
+            this.props.history.push('/exams')
         }
         if(nextProps.errors) {
             this.setState({
@@ -136,16 +137,14 @@ class Login extends Component {
                     {errors.password && (<Text id="password-text" style={{color: 'red'}}>{errors.password}</Text>)}
                     <Button fullWidth={true} raised primary style={{margin: 10}} type="submit" text="Login" onPress={this.handleSubmit}/>
                    
-                    <Link component={ AdapterLink } to="/forgot_password">
-                                    <Text style={{margin:10}}>Esqueceu sua senha?</Text> 
-                     </Link>       
+                    <Button onPress={ ()=>{ Linking.openURL('http://parapetilab.com/forgot_password')}} 
+                    text="Esqueceu sua senha?" />       
                     
                 </Card>
             </View>
         )
     }
 }
-const AdapterLink = React.forwardRef((props, ref) => <Link innerRef={ref} {...props} />);
 
 //  const [labelWidth, setLabelWidth] = React.useState(0)
 //  const [name, setName] = React.useState('Composed TextField')

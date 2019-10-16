@@ -1,5 +1,6 @@
 export default {
     home: '/',
     login: '/login',
-    exams: '/exams'
+    exams: '/exams',
+    profile: '/profile'
 };

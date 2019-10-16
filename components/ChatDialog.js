@@ -347,6 +347,9 @@ class ChatDialog extends Component {
             axios.post(REACT_APP_API_HOST.api + '/api/comments/file/' + this.props.file._id, comment)
                     .then(res => {
                         this.scrolledOnce = 0
+                        if(this.props.comments && this.props.comments.length < 5){
+                            this.postMessagesRead()
+                        }
                         this.props.loadChatDialogExams(this.props.file._id)
                     })
                     .catch(err => {
@@ -386,7 +389,7 @@ class ChatDialog extends Component {
                             </View>
                         </View>
                         <CustomScrollView  
-                                style={{backgroundColor: '#eee', marginTop: 10, maxHeight:'80%'}} id="messages-container"
+                                style={{backgroundColor: '#eee', marginTop: 10, maxHeight:'80%', minHeight:'80%'}} id="messages-container"
                                 scrollIntoViewOptions={scrollIntoViewOptions}
                                 onScroll={({nativeEvent}) => {
                                     if (!this.props.isFetching &&this.isCloseToBottom(nativeEvent)) {
@@ -414,12 +417,13 @@ class ChatDialog extends Component {
                                   )}
                             
                         </CustomScrollView>
-                    <View style={{flex: 1, flexDirection:'row', minHeight:'10%', maxHeight:'20%', justifyContent:'space-around', alignItems: 'center'}}>
+                    <View style={{flex: 1, flexDirection:'row', minHeight:'10%', maxHeight:'20%', justifyContent:'space-around', alignItems: 'center', borderColor: 'blue', borderRadius:10}}>
                                 <TextField
                                     label="Faça sua pergunta..."
                                     value={this.state.message}
                                     onChangeText={this.handleMessageChange}
-                                    containerStyle={{width:'80%', alignSelf:'center'}}
+                                    containerStyle={{width:'80%', alignSelf:'center',marginVertical: 'auto'}}
+                                    style={{marginTop:0}}
                                 />  
                                 <TouchableOpacity 
                                  edge="end" color="inherit" 

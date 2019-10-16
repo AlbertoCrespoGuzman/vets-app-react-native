@@ -12,7 +12,7 @@ const REACT_APP_API_HOST = require('./../utils.json');
 import RNFetchBlob from 'react-native-fetch-blob'
 import {AsyncStorage} from 'react-native';
 import ChatDialog from './ChatDialog' 
-
+import firebase from 'react-native-firebase'
 
 class Exams extends Component {
     
@@ -51,6 +51,9 @@ class Exams extends Component {
             this.getToken()
         }
         this.props.loadExams()
+        this.notificationListener = firebase.notifications().onNotification((notification) => {
+            console.log('hola q ase', notification)
+        });
     }
     componentDidUpdate(){
         

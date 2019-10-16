@@ -29,8 +29,16 @@ class Navbar extends Component {
         this.toogleDrawer = this.toogleDrawer.bind(this)
     }
 
-   
-  
+    componentDidMount(){
+     
+        _this = this
+        setTimeout(function (){
+            if(_this.props.auth.isAuthenticated) {
+                _this.props.history.push(navigation.exams)
+            }
+        }, 700)
+       
+    }
     toogleDrawer() {
         this.setState({
             openDrawer: !this.state.openDrawer
@@ -43,6 +51,10 @@ class Navbar extends Component {
         switch(newScreen){
             case 'Exams':
             this.props.history.push(navigation.exams)
+            this.toogleDrawer()
+            break;
+            case 'Profile':
+            this.props.history.push(navigation.profile)
             this.toogleDrawer()
             break;
         }
@@ -59,7 +71,9 @@ class Navbar extends Component {
      ''
         )
       const guestLinks = (
-            <Button onPress={()=>{this.props.history.push(navigation.login);}}  style={{ position: 'absolute', right: '0'}} raised primary text="Consulte seu exame" />
+            <Button onPress={()=>{
+                this.props.history.push(navigation.login);
+            }}  style={{ position: 'absolute', right: '0', zIndex:999999}} raised primary text="Consulte seu exame" />
       )
       
         return(
