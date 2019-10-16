@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { loadProfileRequest } from '../actions/actions'
-import { Animated, StyleSheet, Text, View, TouchableOpacity,ScrollView, Button } from 'react-native';
+import { Animated, StyleSheet, Text, View, TouchableOpacity,ScrollView, Button, Picker, TextInput } from 'react-native';
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import { Card, Icon, Badge, ListItem } from 'react-native-material-ui'
@@ -29,6 +29,13 @@ class Profile extends Component {
         this.saveProfile = this.saveProfile.bind(this)
         this.postPassword = this.postPassword.bind(this)
         this.handleinputPasswordChange = this.handleinputPasswordChange.bind(this)
+        this.handleCompleteName = this.handleCompleteName.bind(this)
+        this.handleCpf = this.handleCpf.bind(this)
+        this.handleAddress = this.handleAddress.bind(this)
+        this.handleCrmv = this.handleCrmv.bind(this)
+        this.handleTechnicalSupport = this.handleTechnicalSupport.bind(this)
+        this.handlePhone = this.handlePhone.bind(this)
+        this.handleinputConfirmPasswordChange = this.handleinputConfirmPasswordChange.bind(this)
     }
     
     componentDidMount(){
@@ -95,13 +102,44 @@ class Profile extends Component {
             })
     }
     handleinputChange(e) {
-        const varName = e.target.name
-        this.props.profile[varName] = e.target.value
+       
+        this.props.profile[varName] = e
+        this.setState({})
+        
+    }
+    handleCompleteName(e) {
+        this.props.profile['completename'] = e
+        this.setState({})
+    }
+    handleCpf(e) {
+        this.props.profile['cpf'] = e
+        this.setState({})
+    }
+    handleAddress(e) {
+        this.props.profile['address'] = e
+        this.setState({})
+    }
+    handleCrmv(e) {
+        this.props.profile['crmv'] = e
+        this.setState({})
+    }
+    handleTechnicalSupport(e) {
+        this.props.profile['technicalSupport'] = e
+        this.setState({})
+    }
+    handlePhone(e) {
+        console.log(e)
+        this.props.profile.phone = e
         this.setState({})
     }
     handleinputPasswordChange(e){
         this.setState({
-            [e.target.name]: e.target.value
+            password: e
+        })
+    }
+    handleinputConfirmPasswordChange(e){
+        this.setState({
+            confirmPassword: e
         })
     }
     handleSelectTypeChange(e){
@@ -124,105 +162,146 @@ class Profile extends Component {
     }
     render() {
         return (
-            <View style={{marginTop:120, marginLeft:80, width: '100%', height: '100%', flex: 1, justifyContent: 'center', alignContent:'center'}}>
-               <Text>
-                   Meu Perfil
-               </Text>
+            <ScrollView style={{marginTop:40, width: '100%', height: '100%', flex: 1}}>
+               <View style={{marginTop:40, width: '100%', height: '100%', flex: 1, justifyContent: 'center', alignContent:'center'}}>
                
-               <Card style={{marginTop:10, width: '70%'}}>
-                    <View 
+               
+               <Card style={{marginTop:10, width: '70%', padding:15}}>
+                    <View style={{flex:1, flexDirection: 'row', justifyContent: 'space-around'}}
                     value={this.state.tab} onChange={this.handleTabsChange} aria-label="Meu Perfil">
-                    <View label="Detalhes Conta" {...a11yProps(0)} />
-                    <View label="Modificar Senha" {...a11yProps(1)} />
+                        <Button title="Detalhes Conta" onPress={()=> {this.setState({tab:0})}} color={this.state.tab === 0 ? 'grey' : '#0188FE'}/>
+                        <Button title="Modificar Senha" onPress={()=> {this.setState({tab:1})}}  color={this.state.tab === 1 ? 'grey' : '#0188FE'}/>
                     </View>
-                <TabPanel value={this.state.tab} index={0}>
-                {!this.props.isFetching &&(
-                        <form onSubmit={ this.handleSubmitProfile }>
+                <View >
+                {!this.props.isFetching && this.state.tab === 0 && (
+                        <View style={{padding:15}}>
                             <View className={classes.Text} fullWidth={true} >
                                 <Text htmlFor="type-error">Tipo de Usuário</Text>
-                                <select
-                                value={this.props.profile.type}
-                                onChange={this.handleSelectTypeChange}
+                                <Picker
+                                selectedValue={this.props.profile.type}
+                                onValueChange={this.handleSelectTypeChange}
                                 name="type"
-                                disabled={true}
+                                enabled={false}
                                 >
-                                    <ListItem value={0}>
-                                        <em>Escolha tipo de usuário</em>
-                                    </ListItem>
-                                    <ListItem value={1}>Cliente</ListItem>
-                                    <ListItem value={2}>Clínica</ListItem>
-                                    <ListItem value={3}>Veterinário</ListItem>
-                                    <ListItem value={4}>Administrador</ListItem>
-                                </select>
+                                    <Picker.Item value={0} label="Escolha tipo de usuário" />
+                                    
+                                    <Picker.Item value={1} label="Cliente"/>
+                                    <Picker.Item value={2} label="Clínica"/>
+                                    <Picker.Item value={3} label="Veterinário"/>
+                                    <Picker.Item value={4} label="Administrador"/>
+                                </Picker>
                                 
                             </View>
-                                <Text className={classes.Text} fullWidth={true} margin={PropTypes.margin}>
+                                <View className={classes.Text} fullWidth={true} margin={PropTypes.margin}>
                                     <Text htmlFor="username">E-mail</Text>
-                                    <input
+                                    <TextInput
                                     type="text"
                                     id="username"
                                     name="username"
-                                    onChange={this.handleinputChange}
                                     aria-describedby="username-text"
-                                    onChange={ this.handleinputChange }
                                     value={ this.props.profile.username }
-                                    disabled={true}
+                                    editable={false}
                                     />
                                     
-                                </Text>
-                                <Text className={classes.Text} fullWidth={true} >
+                                </View>
+                                <View className={classes.Text} fullWidth={true} >
                                     <Text htmlFor="completename">Nome Completo</Text>
-                                    <input
+                                    <TextInput
                                     type="text"
                                     id="completename"
                                     name="completename"
-                                    onChange={this.handleinputChange}
+                                    onChangeText={this.handleCompleteName}
                                     aria-describedby="completename-text"
                                     value={ this.props.profile.completename }
-                                    disabled={!this.state.isEditing}
+                                    editable={this.state.isEditing}
                                     />
                                     {this.props.error.completename && (<Text id="completename-text">{this.props.error.completename}</Text>)}
-                                </Text>
-                                <Text className={classes.Text} fullWidth={true} >
+                                </View>
+                                <View className={classes.Text} fullWidth={true} >
                                     <Text htmlFor="cpf">CPF/CNPJ</Text>
-                                    <input
+                                    <TextInput
                                     type="text"
                                     id="cpf"
                                     name="cpf"
                                     aria-describedby="cpf-text"
-                                    onChange={ this.handleinputChange }
+                                    onChangeText={ this.handleCpf }
                                     value={ this.props.profile.cpf }
-                                    disabled={!this.state.isEditing}
+                                    editable={this.state.isEditing}
                                     />
                                     {this.props.error.cpf && (<Text id="cpf-text">{this.props.error.cpf}</Text>)}
-                                </Text>
-                                <Text className={classes.Text} fullWidth={true} >
+                                </View>
+                                <View className={classes.Text} fullWidth={true} >
+                                    <Text htmlFor="phone">Phone</Text>
+                                    <TextInput
+                                    type="text"
+                                    id="phone"
+                                    name="phone"
+                                    aria-describedby="phone-text"
+                                    onChangeText={ this.handlePhone }
+                                    value={ this.props.profile.phone }
+                                    editable={this.state.isEditing}
+                                    />
+                                    {this.props.error.phone && (<Text id="phone-text">{this.props.error.phone}</Text>)}
+                                </View>
+                                {!this.props.profile.vet && (
+                                
+                                <View className={classes.Text} fullWidth={true} >
                                     <Text htmlFor="address">Endereço</Text>
-                                    <input
+                                    <TextInput
                                     type="text"
                                     id="address"
                                     name="address"
                                     aria-describedby="address-text"
-                                    onChange={ this.handleinputChange }
+                                    onChangeText={ this.handleAddress }
                                     value={ this.props.profile.address }
-                                    disabled={!this.state.isEditing}
+                                    editable={this.state.isEditing}
                                     />
                                     {this.props.error.address && (<Text id="address-text">{this.props.error.address}</Text>)}
-                                </Text>
-                            
-                            <View>
+                                </View>
+                                )}
+                                { (this.props.profile.vet || this.props.profile.clinic) && (
+                                
+                                <View className={classes.Text} fullWidth={true} >
+                                    <Text htmlFor="cmrv">CMRV</Text>
+                                    <TextInput
+                                    type="text"
+                                    id="cmrv"
+                                    name="cmrv"
+                                    aria-describedby="cmrv-text"
+                                    onChangeText={ this.handleCrmv }
+                                    value={ this.props.profile.cmrv }
+                                    editable={this.state.isEditing}
+                                    />
+                                    {this.props.error.cmrv && (<Text id="cmrv-text">{this.props.error.cmrv}</Text>)}
+                                </View>
+                                )}
+                                {this.props.profile.clinic && (
+                                
+                                <View className={classes.Text} fullWidth={true} >
+                                    <Text htmlFor="technicalSupport">Responsável Técnico</Text>
+                                    <TextInput
+                                    type="text"
+                                    id="technicalSupport"
+                                    name="technicalSupport"
+                                    aria-describedby="technicalSupport-text"
+                                    onChangeText={ this.handleTechnicalSupport }
+                                    value={ this.props.profile.technicalSupport }
+                                    editable={this.state.isEditing}
+                                    />
+                                    {this.props.error.technicalSupport && (<Text id="technicalSupport-text">{this.props.error.technicalSupport}</Text>)}
+                                </View>
+                                )}
+                            <View style={{width:'100%'}}>
                                 {!this.state.isSaving && !this.state.isEditing && 
                                     (<Button 
-                                        onClick={this.changeToEditProfile}
-                                        fullWidth={true} variant="outlined" color="primary" type="submit" >
-                                        Modificar Perfil
-                                </Button> )}
+                                        onPress={this.changeToEditProfile}
+                                        title="Modificar Perfil"/>
+                                         )}
                                 {!this.state.isSaving && this.state.isEditing &&
                                     (<Button 
-                                        onClick={this.saveProfile}
-                                        fullWidth={true} variant="contained" color="primary" type="submit" >
-                                        Salvar
-                                </Button> )}
+                                        onPress={this.saveProfile} 
+                                        title="Salvar"/>
+                                        )}
                                 
                                 {this.state.isSaving && (
                                     <View
@@ -237,44 +316,43 @@ class Profile extends Component {
                                     </View>
                                 )}
                             </View>
-                            </form>
+                            </View>
                             )}
-                </TabPanel>
-                <TabPanel value={this.state.tab} index={1}>
-                {!this.props.isFetching &&(
-                        <form onSubmit={ this.handleSubmitProfile }>
+                </View>
+                <View >
+                {!this.props.isFetching && this.state.tab === 1 && (
+                        <View style={{padding:15}}>
                             
-                                <Text className={classes.Text} fullWidth={true} margin={PropTypes.margin}>
+                                <View className={classes.Text} fullWidth={true} margin={PropTypes.margin}>
                                     <Text htmlFor="password">Nova senha</Text>
-                                    <input
+                                    <TextInput
                                     type="password"
                                     id="password"
                                     name="password"
-                                    onChange={this.handleinputPasswordChange}
+                                    onChangeText={this.handleinputPasswordChange}
                                     aria-describedby="password-text"
                                     value={ this.state.password }
                                     />
-                                </Text>
-                                <Text className={classes.Text} fullWidth={true} margin={PropTypes.margin}>
+                                </View>
+                                <View className={classes.Text} fullWidth={true} margin={PropTypes.margin}>
                                     <Text htmlFor="confirmPassword">Confirmar Nova senha</Text>
-                                    <input
+                                    <TextInput
                                     type="password"
                                     id="confirmPassword"
                                     name="confirmPassword"
-                                    onChange={this.handleinputPasswordChange}
+                                    onChangeText={this.handleinputConfirmPasswordChange}
                                     aria-describedby="confirmPassword-text"
                                     value={ this.state.confirmPassword }
                                     />
-                                </Text>
+                                </View>
                                 {this.state.errors && (<Text id="password-text" style={{color: 'red'}}>{this.state.errors}</Text>)}
                                 {this.state.message && (<Text id="password-text" style={{color: 'green'}}>{this.state.message}</Text>)}
-                            <CardActions>
+                            <View>
                                 {!this.state.isSaving &&
                                     (<Button 
-                                        onClick={this.postPassword}
-                                        fullWidth={true} variant="contained" color="primary" type="submit" >
-                                        Redefinir Senha
-                                </Button> )}
+                                        onPress={this.postPassword}
+                                        title="Redefinir Senha"/>
+                                        )}
                                 
                                 {this.state.isSaving && (
                                     <View
@@ -288,12 +366,13 @@ class Profile extends Component {
                                          <Progress.Circle size={10} borderWidth={1} indeterminate={true} />
                                     </View>
                                 )}
-                            </CardActions>
-                            </form>
+                            </View>
+                            </View>
                             )}
-                </TabPanel>
+                </View>
                 </Card>
-            </View>
+                </View>
+            </ScrollView>
         );
     }
 }
@@ -302,7 +381,7 @@ function TabPanel(props) {
     const { children, value, index, ...other } = props;
   
     return (
-      <Text
+      <View
         component="div"
         role="tabpanel"
         hidden={value !== index}
@@ -311,7 +390,7 @@ function TabPanel(props) {
         {...other}
       >
         <Text p={3}>{children}</Text>
-      </Text>
+      </View>
     );
   }
   
